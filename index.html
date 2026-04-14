@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRAVITY</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="loader">
+    <div class="loader-content">
+        <h1>Loading Gravity...</h1>
+    </div>
+</div> 
+
+<header class="header">
+
+  <div class="History">
+    <button id="historyBtn" title="History">
+      <img src="Images/Photo Template.png" alt="">
+    </button>
+  </div>
+
+  <div class="Newton">
+    <button id="newtonBtn" title="Newton's Law">
+      <img src="Images/Apple Template.png" alt="">
+    </button>
+  </div>
+
+  <div class="Earth">
+    <button id="earthBtn" title="Earth">
+      <img src="Images/Earth Template.png" alt="">
+    </button>
+  </div>
+
+  <div class="Astro">
+    <button id="astroBtn"title="Black Holes & Stars">
+      <img src="Images/Planets Template.png" alt="">
+    </button>
+  </div>
+
+  <div class="Orbits">
+    <button id="orbitsBtn"title="Orbits">
+      <img src="Images/OrbitsTransparent.png" alt="">
+    </button>
+  </div>
+
+  <div class="DarkMatter">
+    <button id="darkmatterBtn"title="Dark Matter">
+      <img src="Images/DarkMatterTransparent.png" alt="">
+    </button>
+  </div>
+
+  <div class="Anomalies">
+    <button id="anomalyBtn"title="Anomalies">
+      <img src="Images/AnomalyTransparent.png" alt="">
+    </button>
+  </div>
+  
+  <div class="Relativity">
+    <button id="relativityBtn"title="General Relativity">
+      <img src="Images/RelativityTransparent.png" alt="">
+    </button>
+  </div>
+
+</header>
+
+<div id="uiHint">Tip: Use the buttons above to explore sections!</div>
+
+
+<section>
+
+<img id="backgroundImage" src="Images/Athens.jpg" alt="">
+
+  <div class="overlayText">
+      <h1 id="infoTitle"></h1>
+      <p id="infoText"></p>
+  </div>
+
+  <div id="speechBubble">
+    Try clicking on the text!
+  </div>
+
+  <div id="orbitContainer"></div>
+</section>
+
+</section>
+
+<footer> </footer>
+
+
+<button id="contrastToggle">Toggle Text</button>    
+
+<script>
+window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+
+    setTimeout(() => {
+        loader.classList.add("hide");
+    }, 3000); // delay so the animation can be seen
+});
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>

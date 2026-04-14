@@ -1,0 +1,477 @@
+html { 
+    overscroll-behavior: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "LinealR";
+    font-size: 80px;
+    color: #000000;
+    
+}
+
+#speechBubble {
+    position: absolute;
+    bottom: 65%;
+    left: 3%;
+
+    background: white;
+    color: black;
+
+    padding: 10px 14px;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-family: "Courier New", monospace;
+
+    opacity: 0;
+    transform: translateY(20px);
+
+    transition: opacity 0.6s ease, transform 0.6s ease;
+
+    z-index: 500;
+}
+
+/* Triangle (speech tail) */
+#speechBubble::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 20px;
+
+    border-width: 8px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+}
+
+/* Show state */
+#speechBubble.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#orbitCenter {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    transform: translate(-50%, -50%);
+
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+
+    text-align: center;
+    white-space: nowrap;
+
+    z-index: 10;
+}
+
+#orbitContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 300;
+}
+
+.orbit-word {
+    position: absolute;
+    white-space: nowrap;
+    color: white;
+    font-size: 16px;
+}
+
+/* Orbit animation */
+@keyframes orbit {
+    from {
+        transform: rotate(0deg) translateX(var(--radius)) rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg);
+    }
+}
+
+#loader {
+    position: fixed;
+    inset: 0;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 200000;
+
+    transition: opacity 0.6s ease;
+}
+
+.loader-content {
+    color: white;
+    font-size: 40px;
+    font-family: "Courier New", monospace;
+}
+
+/* After the loader ends, it is hidden. */
+#loader.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.overlayText {
+    position: absolute;
+    bottom: 5%;
+    left: 3%;
+    color: white;
+
+    z-index: 3000000; 
+
+    pointer-events: auto;
+}
+
+.word {
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.word:hover {
+    transform: scale(1.1);
+}
+
+@keyframes wordFall {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(200vh);
+        opacity: 0;
+    }
+}
+
+.word.fall {
+    animation: wordFall 1s ease-in forwards;
+}
+
+.overlayText h1 {
+    opacity: 0;
+    transform: translateX(-60px);
+}
+
+/* Title slide in animation. */
+.overlayText.show h1 {
+    animation: slideText 0.6s ease forwards;
+}
+
+
+.overlayText p {
+    opacity: 0;
+    transform: translateX(-60px);
+}
+
+/* Text slide in animation */
+.overlayText.show p {
+    animation: slideText 0.6s ease forwards;
+    animation-delay: 0.3s;
+}
+
+
+.overlayText:not(.show) p {
+    opacity: 0;
+}
+
+.overlayText.show h1,
+.overlayText.show p {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#infoTitle {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+#infoText {
+    max-width: 500px;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+/* Information text slide in class. */
+.slide-in {
+    animation: slideIn 2s ease forwards;
+}
+
+@keyframes slideText {
+    from {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fallOut {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(200vh);
+        opacity: 0;
+    }
+}
+
+.fall-out {
+    animation: fallOut 1s ease-in forwards !important;
+}
+
+.header {
+  display: grid; /* Keeps the display in a grid formation. */
+  position: fixed; /* Keeps position fixed. */
+  grid-template-columns: repeat(8, 1fr); /* Grid template. */
+    column-gap: var(--spacing-base);
+  align-items: center;
+  padding: 10px 20px 10px 20px; /* How big the header widget is.*/
+  background-color: #333333; /* Colour of widget. */
+  border-radius: 10px; /* Makes corners of header round. */
+
+   position: fixed; /* Placement of widget is still when scrolling or moved. */
+    top: 25px; /* How far the header is away from top of screen. */
+    left: 50%;
+    transform:  translateX(-50%);
+
+    width: 700px; /* Width of widget.*/
+    min-width: 700px; /* Minimum width of widget when making the window smaller. */
+
+    z-index: 10000; /* Determines which layer it sits on. */
+    font-size: 10px;
+    display: grid;
+
+    box-shadow: 0px 4px 16px rgba(17,17,26,0.1), 
+                0px 8px 24px rgba(17,17,26,0.1), 
+                0px 16px 56px rgba(17,17,26,0.1); /* Drop shadow of header. */
+
+    pointer-events: auto;
+}
+
+
+
+header {}
+    
+
+.History *,
+.Newton *,
+.Earth *,
+.Astro *,
+.Orbits *,
+.DarkMatter *,
+.Anomalies *,
+.Relativity * {
+    font-family: "Courier New', Courier,", monospace;
+    font-style: Bold;
+    background-color: transparent;
+    color: #f8f8f8f8;
+    border: 0;
+    cursor: pointer;
+
+    
+    
+}
+
+
+
+.header img {
+    width: 40%;
+}
+
+#uiHint {
+    position: fixed;
+    top: 85px; /* Positioned just below header. */
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 14px;
+    font-family: "Courier New", monospace;
+    color: white;
+
+    background: rgba(0,0,0,0.6);
+    padding: 8px 12px;
+    border-radius: 6px;
+
+    opacity: 0;
+    pointer-events: auto;
+
+    z-index: 2000000;
+
+    transition: opacity 0.8s ease;
+
+    white-space: nowrap;
+}
+
+/* visible state */
+#uiHint.show {
+    opacity: 1;
+}
+
+/* flashing effect */
+#uiHint.flash {
+    animation: flash 1.4s ease-in-out 3;
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+
+section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #333333;
+
+    z-index: 100;
+
+}
+
+#backgroundImage {
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  
+
+    transition: transform 1.2s ease, opacity 0.8s ease;
+
+    z-index: 1;
+    position: relative;
+}
+
+
+/* Zoom In */
+.zoom-in {
+  transform: scale(1.15);
+}
+
+/* Zoom Out */
+.zoom-out {
+  transform: scale(1);
+}
+
+
+a {
+    color: black;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: transform 0.5s ease;
+    
+}
+
+a:hover {
+    transform: scale(1.5);
+    color: rgb(249, 0, 0);
+
+}
+
+.container {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+}
+
+.left,
+
+.right {
+    height: 100%;
+    flex-basis: 50%;
+
+
+}
+
+.full {
+    height: 100%;
+    flex-basis: 100%;
+    background-color: rgb(0, 255, 72);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.full img {
+
+    height: 60%;
+    z-index: 3;
+
+
+
+}
+
+#contrastToggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+
+    padding: 10px 14px;
+    font-size: 14px;
+
+    background: rgba(0,0,0,0.6);
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+ 
+    z-index: 20000;
+
+    pointer-events: auto;
+}
+#contrastToggle:hover {
+    background: rgba(0,0,0,0.8);
+}
+.dark-text .overlayText {
+    color: black;
+}
+.dark-text #infoTitle,
+.dark-text #infoText {
+    color: black;
+}
+
+
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center; /* Alligns the text/images where wanted. */
+    justify-content: space-around; /* Will space out text. */
+    padding-bottom: 40px;
+    z-index: 4;   /* Determines which layer it sits on. */
+
+    padding-top: 40px;   /* Adds margin to top of the text / thing used */
+    background-color: transparent;
+
+
+}
+
+/* RESPONSIVE DESIGN: for mobile size */
+
+@media screen and (max-width: 768px) {
+    .left,
+    .right,
+    .full-width {
+        height: auto;
+        flex-basis: 100%;
+
+
+    }
+}
